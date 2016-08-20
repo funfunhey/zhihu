@@ -1,0 +1,77 @@
+<?php $__env->startSection('content'); ?>
+<style>
+    body{
+            background: #f6f6f6;
+    }
+    #content{
+            float:none;
+        margin:0 auto;
+        min-width:300px;
+        max-width:600px;
+    }
+    .panel-heading{
+        border-bottom:1px solid #f6f6f6;
+    }
+    .next-page{
+        left: 75%;
+    }
+    .pre-page{
+        left:18%;
+    }
+    .page a:hover,.page a{
+        color:white !important;
+        text-decoration: none; 
+    }
+    .page:hover{
+        background-color:rgba(0,0,0,0.5);
+    }
+    .page{
+        height:100px;
+        width:100px;
+        border-radius:10px;
+        background-color:rgba(0,0,0,0.1);
+        position: absolute;     
+        top: 50%;
+        font-size:80px;
+        text-align:center;
+        color:white !important;
+        text-decoration: none; 
+    }
+</style>
+    <?php if($datas['prepage']): ?>
+    <div class="pre-page page">
+         ＜
+    </div>
+    <?php endif; ?>
+	<div class="row">
+	<div  id="content" >
+        <div class="panel ">
+            <!-- Default panel contents -->
+            <div class="panel-heading" style="font-size:20px;"><?php echo e($datas['title']); ?></div>
+    		<ul class="list-group" >
+            <?php foreach($datas['content'] as  $topstory): ?>
+                <a class="list-group-item" style="height:100px;" target="_blank" href="detail-<?php echo e($topstory['id']); ?>">
+                <span class="col-md-10 col-lx-12  " ><?php echo e($topstory['title']); ?></span>
+                <?php if(array_key_exists('image',$topstory)): ?>
+                    <img src="url?url=<?php echo e($topstory['image']); ?>" style="width:80px;height:80px"  /> 
+                <?php elseif(array_key_exists('images',$topstory)): ?>
+                    <?php foreach($topstory['images'] as $img): ?>
+                    <img src="url?url=<?php echo e($img); ?>" style="width:80px;height:80px"  /> 
+                    <?php endforeach; ?>
+                
+                <?php endif; ?>
+                 </a>
+            <?php endforeach; ?>
+            </ul>
+	   </div>	
+	</div>
+    </div>
+    <?php if($datas['nextpage']): ?>
+    <div class="next-page page">
+        <a href="<?php echo e($datas['type']); ?>-<?php echo e($datas['nextpage']); ?>"> ＞ </a>
+    </div>
+    <?php endif; ?>
+    
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
